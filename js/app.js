@@ -12,7 +12,7 @@ var MapWithMarkers = function() {
     //whether or not the drawer is visible.
     self.drawerVisible = ko.observable(true);
     //map styles
-    var styles = [];
+    //var styles = [];
 
     this.initialize = function() {
 
@@ -22,26 +22,26 @@ var MapWithMarkers = function() {
                 lng: -73.9980244
             },
             zoom: 13,
-            styles: styles,
+            // styles: styles,
             mapTypeControl: false
         });
 
-    	jQuery.getJSON( "./js/styles.json", function( data ) {
-    		styles = data;
-		});
+  //   	$.getJSON( "./js/styles.json", function( data ) {
+  //   		styles = data;
+		// });
 
         // Set the map's style to the initial value of the selector.
-        var styleSelector = document.getElementById('style-selector');
-        map.setOptions({
-            styles: styles[styleSelector.value]
-        });
+        // var styleSelector = document.getElementById('style-selector');
+        // map.setOptions({
+        //     styles: styles[styleSelector.value]
+        // });
 
         // Apply new JSON when the user selects a different style.
-        styleSelector.addEventListener('change', function() {
-            map.setOptions({
-                styles: styles[styleSelector.value]
-            });
-        });
+        // styleSelector.addEventListener('change', function() {
+        //     map.setOptions({
+        //         styles: styles[styleSelector.value]
+        //     });
+        // });
 
         markerInfoWindow = new MapInfoWindow();
         initializeLocations();
@@ -57,11 +57,19 @@ var MapWithMarkers = function() {
             },
             isVisible: ko.observable(true)
         }, {
-            name: 'Elm 2',
+            name: 'Elm',
             address: 'King Fahad street',
             location: {
                 lat: 24.712756,
                 lng: 46.672456
+            },
+            isVisible: ko.observable(true)
+        },{
+            name: 'King Abdullah Financial District‏',
+            address: 'King fahad Rd',
+            location: {
+                lat: 24.761990,
+                lng: 46.640447
             },
             isVisible: ko.observable(true)
         }, {
