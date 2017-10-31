@@ -13,7 +13,7 @@ To download all files click button {download ZIP}
 
 
 ## Running the tests
-* Run online [Demo](https://ralsaaran.github.io/Front-End-maps/)
+* Run online [Demo](https://ralsaaran.github.io/Mymaps/)
 
 
 * Run offline
