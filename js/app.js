@@ -65,14 +65,6 @@ var MapWithMarkers = function() {
             },
             isVisible: ko.observable(true)
         }, {
-            name: 'King Abdullah Financial District‏',
-            address: 'King Fahad street',
-            location: {
-                lat: 24.712756,
-                lng: 46.672456
-            },
-            isVisible: ko.observable(true)
-        }, {
             name: 'Smaat',
             address: 'Khalid Ibn walid',
             location: {
