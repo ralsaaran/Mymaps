@@ -26,9 +26,9 @@ var MapWithMarkers = function() {
             mapTypeControl: false
         });
 
-  //   	jQuery.getJSON( "./js/styles.json", function( data ) {
-  //   		styles = data;
-		// });
+    	jQuery.getJSON( "./js/styles.json", function( data ) {
+    		styles = data;
+		});
 
         // Set the map's style to the initial value of the selector.
         var styleSelector = document.getElementById('style-selector');
