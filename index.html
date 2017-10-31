@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>My Worldly Travels</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="./css/style.css" >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous" onerror="loadError()" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" onerror="loadError()" > </script>
+        <script src="./js/app.js" onerror="loadError()" ></script>
+    </head>
+    <body>
+        <div>
+            <nav class="menu open" id="drawer" data-bind="css : {'open': drawerVisible }" >
+                <h2 align="center">
+                <p class="fa fa-map"> Maps</p>
+                </h2>
+               
+                <input id="places-text-search" type="text" placeholder="Enter name of place here." data-bind="value : searchQuery,valueUpdate : 'afterkeydown'" >
+                <button id="reset-places" type="button" data-bind="click : resetEntries" class="fa fa-search"> </button>
+                <div>
+                    <ul id="list-of-places" class="placesList" data-bind="foreach: mapLocations">
+                        <li class="autocomplete-item" data-bind="visible : isVisible, click : $parent.hideRemainingEntries"> <span data-bind="text: name"></span> <span data-bind="text: address"></span> </li>
+                    </ul>
+                </div>
+                <div id="hide-drawer-control" class="drawer-controls" data-bind="click: toggleDrawerControls, css : {'drawer-controls-hide' : !drawerVisible()}">
+                    <img src="https://www.pbjshop.com/images/pbj-3-bar.png" class="drawer-controls-image" id="hide-drawer-control-image" data-bind="css : {'rotateControl' : !drawerVisible()}" />
+
+                </div>
+                <!-- <div id="style-selector-control" name="style-selector-control"  class="map-control">
+                    <label for="style-selector">Map Style: </label>
+                    <select id="style-selector" class="selector-control">
+                        <option value="default">Default</option>
+                        <option value="neon">Neon</option>
+                        <option value="night">Night Mode</option>
+                    </select>
+                </div> -->
+            </nav>
+            <main id="map" data-bind="css : {'map-full-screen': !drawerVisible() }" class="map-part-screen" ></main>
+        </div>
+        <!--   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoUGEPZo3XaXKnaqCimbZ5yoZbLIanPeI&callback=initMap"
+  type="text/javascript"></script> -->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoUGEPZo3XaXKnaqCimbZ5yoZbLIanPeI&callback=initMap" async onerror="loadError()" ></script>
+    </body>
+</html>
