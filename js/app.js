@@ -11,6 +11,8 @@ var MapWithMarkers = function() {
     self.searchQuery = ko.observable();
     //whether or not the drawer is visible.
     self.drawerVisible = ko.observable(true);
+
+    var wikiURL;
     //map styles
     //var styles = [];
 
@@ -168,7 +170,7 @@ var MapWithMarkers = function() {
                 dataType: "json",
               // plop data
                 success: function(data, status, jqXHR) {
-                    return data
+                    wikiURL = data[3,1]
                 }
             })
             .done(function() {
@@ -184,6 +186,7 @@ var MapWithMarkers = function() {
         var position = mapItem.location;
         var title = mapItem.name;
         var address = mapItem.address;
+        wiki(title);
 
         var marker = new google.maps.Marker({
             position: position,
@@ -191,7 +194,7 @@ var MapWithMarkers = function() {
             address: address,
             animation: google.maps.Animation.DROP,
             id: index,
-            wikilink: wiki(title),
+            wikilink: wikiURL,
         });
 
         setFlagImageURL(marker, position);
