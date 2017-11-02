@@ -1,5 +1,5 @@
 var MapWithMarkers = function() {
-	"use strict";
+    "use strict";
     var self = this;
     //google map object.
     var map;
@@ -26,9 +26,9 @@ var MapWithMarkers = function() {
             mapTypeControl: false
         });
 
-  //   	$.getJSON( "./js/styles.json", function( data ) {
-  //   		styles = data;
-		// });
+  //    $.getJSON( "./js/styles.json", function( data ) {
+  //        styles = data;
+        // });
 
         // Set the map's style to the initial value of the selector.
         // var styleSelector = document.getElementById('style-selector');
@@ -139,9 +139,9 @@ var MapWithMarkers = function() {
 
         }
         map.fitBounds(bounds);
-		google.maps.event.addDomListener(window, 'resize', function() {
-		  map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
-		});
+        google.maps.event.addDomListener(window, 'resize', function() {
+          map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+        });
     };
 
     var setFlagImageURL = function(mapLocationObject, location) {
@@ -150,11 +150,33 @@ var MapWithMarkers = function() {
             url: 'http://api.geonames.org/countryCode?lat=' + location.lat + '&lng=' + location.lng + '&username=jchaplin',
             async: true
         }).done(function(result) {
-        	if(result)
+            if(result)
                 mapLocationObject.imageHTML = "<img src='http://geotree.geonames.org/img/flags18/" + result.trim() + ".png' alt='country flag' />";
         }).fail(function() {
                 mapLocationObject.imageHTML = "<span> Unable to load flag image. </span>";
         });
+    };
+
+    var wiki = function(locationName){
+            var searchTerm = locationName;
+            var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+ searchTerm +"&format=json&callback=?"; 
+            $.ajax({
+                url: url,
+                type: 'GET',
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                dataType: "json",
+              // plop data
+                success: function(data, status, jqXHR) {
+                    return data
+                }
+            })
+            .done(function() {
+                console.log("success");
+            })
+            .fail(function() {
+                console.log("error");
+            });
     };
 
     //function to create map marker.
@@ -168,7 +190,8 @@ var MapWithMarkers = function() {
             title: title,
             address: address,
             animation: google.maps.Animation.DROP,
-            id: index
+            id: index,
+            wikilink: wiki(title),
         });
 
         setFlagImageURL(marker, position);
@@ -256,7 +279,7 @@ var MapWithMarkers = function() {
 
 
 var MapInfoWindow = function() {
-	"use strict";
+    "use strict";
     var infoWin = new google.maps.InfoWindow();
     var streetViewService = new google.maps.StreetViewService();
 
@@ -275,9 +298,9 @@ var MapInfoWindow = function() {
         if (marker.getAnimation() !== null) {
             marker.setAnimation(null);
         } else {
-        	marker.setAnimation(google.maps.Animation.BOUNCE);
+            marker.setAnimation(google.maps.Animation.BOUNCE);
             window.setTimeout(function(){
-				marker.setAnimation(null);
+                marker.setAnimation(null);
             }, 1400);
         }
 
@@ -298,7 +321,7 @@ var MapInfoWindow = function() {
             var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, infoWin.marker.position);
 
             var flagImageHTML = infoWin.marker.imageHTML;
-	        infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div id="pano" class="streetViewContainer"></div>');
+            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div id="pano" class="streetViewContainer"></div>');
 
             var panoramaOptions = {
                 position: nearStreetViewLocation,
@@ -309,7 +332,7 @@ var MapInfoWindow = function() {
             };
             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         } else {
-            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div>');
+            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+infoWin.marker.wikilink+'</div>');
         }
     };
 };
@@ -320,5 +343,5 @@ function initMap() {
 }
 
 function loadError() {
-	alert("Unable to load libraries. Exiting application.");
+    alert("Unable to load libraries. Exiting application.");
 }
