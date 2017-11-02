@@ -321,7 +321,7 @@ var MapInfoWindow = function() {
             var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, infoWin.marker.position);
 
             var flagImageHTML = infoWin.marker.imageHTML;
-            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div id="pano" class="streetViewContainer"></div>');
+            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ infoWin.marker.wikilink +'</div><div id="pano" class="streetViewContainer"></div>');
 
             var panoramaOptions = {
                 position: nearStreetViewLocation,
