@@ -170,7 +170,7 @@ var MapWithMarkers = function() {
                 dataType: "json",
               // plop data
                 success: function(data, status, jqXHR) {
-                    wikiURL = data[3,1]
+                    wikiURL = data[3,1];
                 }
             })
             .done(function() {
