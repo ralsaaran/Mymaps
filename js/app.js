@@ -179,7 +179,7 @@ var MapWithMarkers = function() {
                        console.log(wikiURL); 
                     }  
                 }
-            })
+            });
             //return wikiURL;
     };
 
@@ -325,12 +325,13 @@ var MapInfoWindow = function() {
     // position of the streetview image, then calculate the heading, then get a
     // panorama from that and set the options
     var getStreetView = function(data, status) {
+        var TaglinkWIKI = infoWin.marker.LINK;
         if (status === google.maps.StreetViewStatus.OK) {
             var nearStreetViewLocation = data.location.latLng;
             var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, infoWin.marker.position);
 
             var flagImageHTML = infoWin.marker.imageHTML;
-            var TaglinkWIKI = infoWin.marker.LINK;
+            // var TaglinkWIKI = infoWin.marker.LINK;
             infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +'</div><div id="pano" class="streetViewContainer"></div>');
 
             var panoramaOptions = {
@@ -342,7 +343,7 @@ var MapInfoWindow = function() {
             };
             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         } else {
-            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +' Show--</div>');
+            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +'</div>');
         }
     };
 };
