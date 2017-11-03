@@ -177,7 +177,7 @@ var MapWithMarkers = function() {
                 //     alert("cann't connect with wikipedia"); 
                 // } 
             }).fail(function() {
-                alert("cann't connect with wikipedia");
+                mapLocationObject.LINK = "<div>cann't connect with wikipedia</div>";
         });
     };
 
