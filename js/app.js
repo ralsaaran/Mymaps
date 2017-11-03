@@ -164,18 +164,21 @@ var MapWithMarkers = function() {
             $.ajax({
                 url: url,
                 type: 'GET',
-                async: true,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-              // plop data
-                success: function(data, status, jqXHR) {
-                    mapLocationObject.LINK = "<a href='"+data[3][1]+"'>Read more info in wikipedia</a>";
+                dataType: "json", 
+                success: function(response) {
+                    if (response[3][1]) {
+                    mapLocationObject.LINK = "<a href='"+response[3][1]+"'>Read more info in wikipedia</a>";
+                    }else{
+                       mapLocationObject.LINK = "<div>No info in wikipedia</div>"; 
+                    }
                 },
-                error: function() {
-                    mapLocationObject.LINK = "<div>No info in wikipedia</div>"; 
-                }  
-            });
-            //return wikiURL;
+                // errror: function(xhr, ajaxOptions, thrownError) {
+                //     alert(xhr.status);
+                //     alert("cann't connect with wikipedia"); 
+                // } 
+            }).fail(function() {
+                alert("cann't connect with wikipedia");
+        });
     };
 
     //function to create map marker.
