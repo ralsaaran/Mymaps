@@ -165,7 +165,6 @@ var MapWithMarkers = function() {
                 url: url,
                 type: 'GET',
                 contentType: "application/json; charset=utf-8",
-                async: false,
                 dataType: "json",
               // plop data
                 success: function(data, status, jqXHR) {
@@ -173,12 +172,19 @@ var MapWithMarkers = function() {
                     mapLocationObject.LINK = "<a href='"+data[3][1]+"'></a>";
                         wikiURL = "<a href = '"+data[3][1]+"'></a>";
                         console.log(wikiURL);
-                    }else{
+                    } else{
                         mapLocationObject.LINK = "<div>No info in wikipedia</div>";
                         wikiURL = "<div>No info in wikipedia</div>";
                        console.log(wikiURL); 
-                    }  
-                }
+                    } 
+                },
+                error: function(data, status, jqXHR) {
+                    if(!data[3][1]){
+                        mapLocationObject.LINK = "<div>No info in wikipedia</div>";
+                        wikiURL = "<div>No info in wikipedia</div>";
+                       console.log(wikiURL); 
+                     } 
+                }   
             });
             //return wikiURL;
     };
