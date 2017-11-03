@@ -110,8 +110,8 @@ var MapWithMarkers = function() {
             name: 'Sabic Academy',
             address: 'King Fahad Rd',
             location: {
-                lat: 24.799624,
-                lng: 46.720230
+                lat: 24.799541,
+                lng: 46.720175
             },
             isVisible: ko.observable(true)
         }, {
