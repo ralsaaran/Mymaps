@@ -70,8 +70,8 @@ var MapWithMarkers = function() {
             name: 'Smaat',
             address: 'Khalid Ibn walid',
             location: {
-                lat: 24.761936,
-                lng: 46.639621
+                lat: 24.777011,
+                lng: 46.752675
             },
             isVisible: ko.observable(true)
         }, {
@@ -91,7 +91,7 @@ var MapWithMarkers = function() {
             },
             isVisible: ko.observable(true)
         }, {
-            name: 'national museum',
+            name: 'King Abdulaziz Historical Center',
             address: 'King Fahad Rd',
             location: {
                 lat: 24.648176,
@@ -107,7 +107,7 @@ var MapWithMarkers = function() {
             },
             isVisible: ko.observable(true)
         }, {
-            name: 'SABIC',
+            name: 'Sabic Academy',
             address: 'King Fahad Rd',
             location: {
                 lat: 24.799624,
@@ -123,7 +123,7 @@ var MapWithMarkers = function() {
             },
             isVisible: ko.observable(true)
         }, {
-            name: 'Al Imam Mohd Ibn Saud Islamic University',
+            name: 'Imam Muhammad Ibn Saud Islamic University',
             address: 'Othman Bn Afan Rd',
             location: {
                 lat: 24.811951,
@@ -138,7 +138,6 @@ var MapWithMarkers = function() {
             var marker = createMarker(self.mapLocations()[i], i);
             self.mapLocations()[i].marker = marker;
             bounds.extend(self.mapLocations()[i].marker.position);
-
         }
         map.fitBounds(bounds);
         google.maps.event.addDomListener(window, 'resize', function() {
@@ -159,7 +158,7 @@ var MapWithMarkers = function() {
         });
     };
 
-    var wiki = function(locationName){
+    var wiki = function(mapLocationObject,locationName){
             var searchTerm = locationName;
             var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search="+ searchTerm +"&format=json&callback=?"; 
             $.ajax({
@@ -170,15 +169,18 @@ var MapWithMarkers = function() {
                 dataType: "json",
               // plop data
                 success: function(data, status, jqXHR) {
-                    wikiURL = data[3][1];
+                    if (data[3][1]) {
+                    mapLocationObject.LINK = "<a href = '"+data[3][1]+"'></a>";
+                        wikiURL = "<a href = '"+data[3][1]+"'></a>";
+                        console.log(wikiURL);
+                    }else{
+                        mapLocationObject.LINK = "<div>No info in wikipedia</div>";
+                        wikiURL = "<div>No info in wikipedia</div>";
+                       console.log(wikiURL); 
+                    }  
                 }
             })
-            .done(function() {
-                console.log("success");
-            })
-            .fail(function() {
-                console.log("error");
-            });
+            //return wikiURL;
     };
 
     //function to create map marker.
@@ -186,7 +188,9 @@ var MapWithMarkers = function() {
         var position = mapItem.location;
         var title = mapItem.name;
         var address = mapItem.address;
-        wiki(title);
+        //console.log(title);
+        //wiki(title);
+        // console.log(title , wiki(title));
 
         var marker = new google.maps.Marker({
             position: position,
@@ -194,10 +198,12 @@ var MapWithMarkers = function() {
             address: address,
             animation: google.maps.Animation.DROP,
             id: index,
-            wikilink: wikiURL,
+            //wikilink: test,
         });
+        //console.log(marker.wikilink);
 
         setFlagImageURL(marker, position);
+        wiki(marker, title);
 
         //Opens the infowindow.
         marker.addListener('click', function() {
@@ -324,7 +330,8 @@ var MapInfoWindow = function() {
             var heading = google.maps.geometry.spherical.computeHeading(nearStreetViewLocation, infoWin.marker.position);
 
             var flagImageHTML = infoWin.marker.imageHTML;
-            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ infoWin.marker.wikilink +'</div><div id="pano" class="streetViewContainer"></div>');
+            var TaglinkWIKI = infoWin.marker.LINK;
+            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +'</div><div id="pano" class="streetViewContainer"></div>');
 
             var panoramaOptions = {
                 position: nearStreetViewLocation,
@@ -335,7 +342,7 @@ var MapInfoWindow = function() {
             };
             var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         } else {
-            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+infoWin.marker.wikilink+'</div>');
+            infoWin.setContent('<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +' Show--</div>');
         }
     };
 };
