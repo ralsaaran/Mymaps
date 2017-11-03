@@ -169,12 +169,7 @@ var MapWithMarkers = function() {
                 dataType: "json",
               // plop data
                 success: function(data, status, jqXHR) {
-                    if (data[3][1]) {
                     mapLocationObject.LINK = "<a href='"+data[3][1]+"'>Read more info in wikipedia</a>";
-                    } 
-                    else{
-                        mapLocationObject.LINK = "<div>No info in wikipedia</div>";
-                    } 
                 },
                 error: function() {
                     mapLocationObject.LINK = "<div>No info in wikipedia</div>"; 
