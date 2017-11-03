@@ -8,6 +8,12 @@ body {
 	background-color:#6b3449;
 }
 
+.showLink{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: black;
+	font-size: 14px;
+}
 .menu {
 	color:white;
 }

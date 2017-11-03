@@ -169,7 +169,7 @@ var MapWithMarkers = function() {
               // plop data
                 success: function(data, status, jqXHR) {
                     if (data[3][1]) {
-                    mapLocationObject.LINK = "<a href='"+data[3][1]+"'></a>";
+                    mapLocationObject.LINK = "<a href='"+data[3][1]+"'>Read more info in wikipedia</a>";
                         wikiURL = "<a href = '"+data[3][1]+"'></a>";
                         console.log(wikiURL);
                     } else{
@@ -338,7 +338,7 @@ var MapInfoWindow = function() {
 
             var flagImageHTML = infoWin.marker.imageHTML;
             // var TaglinkWIKI = infoWin.marker.LINK;
-            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '</div><div>'+ TaglinkWIKI +'</div><div id="pano" class="streetViewContainer"></div>');
+            infoWin.setContent( flagImageHTML + '<strong>' + infoWin.marker.title + '</strong><div>' + infoWin.marker.address + '<br>' + TaglinkWIKI +'</div><div id="pano" class="streetViewContainer">ccc</div>');
 
             var panoramaOptions = {
                 position: nearStreetViewLocation,
